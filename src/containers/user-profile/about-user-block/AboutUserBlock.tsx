@@ -1,5 +1,4 @@
 import { FC, useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -8,27 +7,38 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import Accordions from '~/components/accordion/Accordions'
 import useAccordions from '~/hooks/use-accordions'
-import { ProfessionalBlock, TypographyVariantEnum } from '~/types'
-import { aboutTutorBlockKeys } from '~/containers/user-profile/about-tutor-block/AboutTutorBlock.constants'
+import {
+  ProfessionalBlock,
+  AboutStudentData,
+  TypographyVariantEnum,
+  UserRoleEnum
+} from '~/types'
 
-import { styles } from '~/containers/user-profile/about-tutor-block/AboutTutorBlock.styles'
+import { styles } from '~/containers/user-profile/about-user-block/AboutUserBlock.styles'
 
-interface AboutTutorBlockProps {
-  data: ProfessionalBlock
+interface AboutUserBlockProps {
+  data: ProfessionalBlock | AboutStudentData
+  itemKeys: Array<keyof ProfessionalBlock>
+  title: string
+  userRole: UserRoleEnum
 }
 
-const AboutTutorBlock: FC<AboutTutorBlockProps> = ({ data }) => {
-  const { t } = useTranslation()
+const AboutUserBlock: FC<AboutUserBlockProps> = ({
+  data,
+  itemKeys,
+  title,
+  userRole
+}) => {
   const { isMobile } = useBreakpoints()
 
   const [expandedItem, handleAccordionChange] = useAccordions()
 
   const accordionItems = useMemo(
     () =>
-      aboutTutorBlockKeys
+      itemKeys
         .filter((key) => data[key])
         .map((key) => ({
-          title: `userProfilePage.aboutTutor.${key}`,
+          title: `userProfilePage.${userRole}About.${key}`,
           description: data[key]
         })),
     [data]
@@ -45,7 +55,7 @@ const AboutTutorBlock: FC<AboutTutorBlockProps> = ({ data }) => {
   return (
     <Box sx={styles.root}>
       <Typography sx={styles.title} variant={titleVariant}>
-        {t('userProfilePage.aboutTutor.title')}
+        {title}
       </Typography>
       <Box sx={styles.wrapper}>
         <Accordions
@@ -65,4 +75,4 @@ const AboutTutorBlock: FC<AboutTutorBlockProps> = ({ data }) => {
   )
 }
 
-export default AboutTutorBlock
+export default AboutUserBlock
