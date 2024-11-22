@@ -70,7 +70,8 @@ export const styles = {
       mb: 1
     },
     description: {
-      typography: { xs: 'body2', md: 'button' }
+      typography: { xs: 'body2', md: 'button' },
+      overflowWrap: 'break-word'
     }
   },
   doneIcon: {
