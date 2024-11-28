@@ -1,6 +1,7 @@
 server {
     listen       80;
-    server_name  s2s-front-stage.azurewebsites.net;
+    server_name  s2s-frontend;
+    # server_name  s2s-front-stage.azurewebsites.net;
 
     # return 301 https://$host$request_uri;
 
