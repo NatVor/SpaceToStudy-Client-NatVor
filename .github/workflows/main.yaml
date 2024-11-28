@@ -23,6 +23,19 @@ jobs:
         run: |
           docker build -t s2s-frontend .
           # docker build -t s2s-frontend ./docker -f ./docker/Dockerfile.stage
+
+      - name: Checkout backend repo
+        run: |
+          git clone https://github.com/ita-social-projects/SpaceToStudy-BackEnd.git backend
+
+      - name: Build Docker image for backend
+        run: |
+          cd backend
+          docker build -t s2s-backend .
+
+      - name: Run Docker container for backend
+        run: |
+          docker run -d -p 8080:80 s2s-backend
  
       - name: Run Docker container
         run: |
