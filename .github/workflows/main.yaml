@@ -35,11 +35,11 @@ jobs:
 
       - name: Test API via reverse proxy
         run: |
-        curl -X GET http://localhost/api/some-endpoint
+          curl -X GET http://localhost:3000/categories?name=&limit=8&skip=0
     
       - name: Test API with status check
         run: |
-          http_response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/api/some-endpoint)
+          http_response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/categories?name=&limit=8&skip=0)
           if [[ "$http_response" -ne 200 ]]; then
             echo "API test failed with response code $http_response"
             exit 1
@@ -57,7 +57,9 @@ jobs:
         run: |
           wscat -c ws://localhost:3000/socket.io/
 
-      
+      - name: Test WebSocket connection
+        run: |
+          wscat -c ws://localhost:3000/socket.io/?EIO=4&transport=polling
 
       - name: Stop Docker container
         run: |
