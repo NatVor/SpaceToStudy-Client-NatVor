@@ -3,7 +3,6 @@ name: Build and Deploy Docker Container
 on:
   push:
     branches: [ devops-nv ]
-    # workflow_dispatch:
   pull_request:
     branches: [ devops-nv ]
 
@@ -48,19 +47,19 @@ jobs:
             exit 1
           fi
 
-      - name: Test WebSocket connection
+      - name: Install ws package
         run: |
-        npm install ws
-        node test-websocket.js
+          npm install ws
 
       - name: Install wscat
-        run: npm install -g wscat
+        run: |
+          npm install -g wscat
 
       - name: Test WebSocket connection
         run: |
           wscat -c ws://localhost:3000/socket.io/
 
-      - name: Test WebSocket connection
+      - name: Test WebSocket connection with parameters
         run: |
           wscat -c ws://localhost:3000/socket.io/?EIO=4&transport=polling
 
