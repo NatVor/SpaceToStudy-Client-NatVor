@@ -21,8 +21,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t s2s-frontend ./docker/Dockerfile.stage 
-          
+          docker build -t s2s-frontend ./docker -f ./docker/Dockerfile.stage
+ 
       - name: Run Docker container
         run: |
           docker run -d -p 3000:80 s2s-frontend
