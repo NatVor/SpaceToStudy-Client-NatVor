@@ -3,6 +3,7 @@ name: Build and Deploy Docker Container
 on:
   push:
     branches: [ devops-nv ]
+    workflow_dispatch:
 
 jobs:
   build-and-deploy:
