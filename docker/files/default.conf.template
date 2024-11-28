@@ -1,20 +1,7 @@
 server {
     listen       80;
     server_name  s2s-frontend;
-    # server_name  s2s-front-stage.azurewebsites.net;
-
-    # return 301 https://$host$request_uri;
-
-# server {
-    # listen      443 ssl;
-    # server_name s2s-front-stage.azurewebsites.net;
-    # ssl_certificate     www.example.com.crt;
-    # ssl_certificate_key www.example.com.key;
-    # ssl_certificate     /etc/nginx/ssl/example.com.crt;
-    # ssl_certificate_key /etc/nginx/ssl/example.com.key;
-    # ...
-# } 
-
+   
     location ~ ^/api/(.*)$ {
         rewrite ^/api/(.*)$ /$1 break;
         proxy_pass https://s2s-back-stage.azurewebsites.net;
